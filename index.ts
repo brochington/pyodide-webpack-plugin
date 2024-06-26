@@ -87,24 +87,6 @@ export class PyodidePlugin extends CopyPlugin {
   }
   apply(compiler: webpack.Compiler) {
     super.apply(compiler);
-    compiler.hooks.compilation.tap(this.constructor.name, (compilation) => {
-      const compilationHooks = webpack.NormalModule.getCompilationHooks(compilation);
-      compilationHooks.beforeLoaders.tap(this.constructor.name, (loaders, normalModule) => {
-        const matches = normalModule.userRequest.match(/pyodide\.m?js$/);
-        if (matches) {
-          // add a new loader specifically to handle pyodide.m?js. See loader.ts for functionalidy
-          loaders.push({
-            loader: path.resolve(dirname, "loader.cjs"),
-            options: {
-              globalLoadPyodide: this.globalLoadPyodide,
-              isModule: matches[0].endsWith(".mjs"),
-            },
-            ident: "pyodide",
-            type: null,
-          });
-        }
-      });
-    });
   }
 }
 /**

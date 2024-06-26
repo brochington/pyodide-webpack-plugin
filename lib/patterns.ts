@@ -48,6 +48,7 @@ const files: { [key: string]: string[] | FileFunction } = {
     });
     return filtered;
   },
+  "0.26.1": ["package.json", "pyodide.asm.js", "pyodide.asm.wasm", "python_stdlib.zip"],
 };
 export const versions = Object.keys(files);
 
